@@ -1,6 +1,7 @@
 /**
  * Internal dependencies
  */
+import icon from './icon';
 import metadata from './block.json';
 
 /**
@@ -13,8 +14,8 @@ const { name, category, attributes } = metadata;
 registerBlockType( name, {
 	title: 'Jumbotron',
 	description: '',
-	icon: 'editor-video',
 	keywords: [ 'videos', 'gallery' ],
+	icon,
 	category,
 	attributes,
 	edit() {
