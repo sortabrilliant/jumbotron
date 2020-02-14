@@ -2,5 +2,26 @@
 	"name": "sortabrilliant/jumbotron",
 	"category": "common",
 	"attributes": {
+		"videos": {
+			"type": "array",
+			"default": [],
+			"source": "query",
+			"selector": "ul.jumbotron-gallery .jumbotron-gallery-item",
+			"query": {
+				"id": {
+					"source": "attribute",
+					"selector": "video",
+					"attribute": "data-id"
+				},
+				"url": {
+					"source": "attribute",
+					"selector": "video",
+					"attribute": "src"
+				}
+			}
+		},
+		"columns": {
+			"type": "number"
+		}
 	}
 }

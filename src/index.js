@@ -2,6 +2,8 @@
  * Internal dependencies
  */
 import icon from './icon';
+import edit from './edit';
+import save from './save';
 import metadata from './block.json';
 
 /**
@@ -18,10 +20,6 @@ registerBlockType( name, {
 	icon,
 	category,
 	attributes,
-	edit() {
-		return <p>Kiss cam</p>;
-	},
-	save() {
-		return <p>Kiss cam</p>;
-	},
+	edit,
+	save,
 } );
