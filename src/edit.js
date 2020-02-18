@@ -2,12 +2,12 @@
  * External dependencies
  */
 import classnames from 'classnames';
+import { filter } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import {
-	Disabled,
 	DropZone,
 	FormFileUpload,
 	IconButton,
@@ -30,6 +30,7 @@ import { Component, Fragment } from '@wordpress/element';
  * Internal dependencies
  */
 import icon from './icon';
+import GalleryVideo from './gallery-video';
 import { defaultColumnsNumber, pickRelevantMediaFiles } from './util';
 
 const MAX_COLUMNS = 4;
@@ -39,10 +40,41 @@ class JumbotronEdit extends Component {
 	constructor() {
 		super( ...arguments );
 
+		this.onSelectVideo = this.onSelectVideo.bind( this );
+		this.onRemoveVideo = this.onRemoveVideo.bind( this );
 		this.onSelectVideos = this.onSelectVideos.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
 		this.addFiles = this.addFiles.bind( this );
 		this.uploadFromFiles = this.uploadFromFiles.bind( this );
+
+		this.state = {
+			selectedVideo: null,
+		};
+	}
+
+	onSelectVideo( index ) {
+		return () => {
+			if ( this.state.selectedVideo !== index ) {
+				this.setState( {
+					selectedVideo: index,
+				} );
+			}
+		};
+	}
+
+	onRemoveVideo( index ) {
+		return () => {
+			const videos = filter(
+				this.props.attributes.videos,
+				( video, i ) => index !== i
+			);
+			const { columns } = this.props.attributes;
+			this.setState( { selectedVideo: null } );
+			this.props.setAttributes( {
+				videos,
+				columns: columns ? Math.min( videos.length, columns ) : columns,
+			} );
+		};
 	}
 
 	onSelectVideos( videos ) {
@@ -162,21 +194,22 @@ class JumbotronEdit extends Component {
 					} ) }
 				>
 					{ dropZone }
-					{ videos.map( ( video ) => {
+					{ videos.map( ( video, index ) => {
 						return (
 							<li
 								className="jumbotron-gallery-item"
 								key={ video.id || video.url }
 							>
-								<figure>
-									<Disabled>
-										<video
-											controls={ true }
-											src={ video.url }
-											data-id={ video.id }
-										/>
-									</Disabled>
-								</figure>
+								<GalleryVideo
+									url={ video.url }
+									id={ video.id }
+									isSelected={
+										isSelected &&
+										this.state.selectedVideo === index
+									}
+									onRemove={ this.onRemoveVideo( index ) }
+									onSelect={ this.onSelectVideo( index ) }
+								/>
 							</li>
 						);
 					} ) }

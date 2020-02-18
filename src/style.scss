@@ -11,6 +11,7 @@ $grid-size-large: 16px;
 		display: flex;
 		flex-grow: 1;
 		width: calc((100% - #{ $grid-size-large }) / 2);
+		position: relative;
 
 		&:nth-of-type(even) {
 			margin-right: 0;

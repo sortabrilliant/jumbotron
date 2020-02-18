@@ -23,4 +23,35 @@
 			margin-top: 10px;
 		}
 	}
+
+	.jumbotron-gallery-item__inline-menu {
+		margin: 8px;
+		display: inline-flex;
+		position: absolute;
+		top: -2px;
+		right: -2px;
+		z-index: 20;
+	}
+
+	.is-selected .jumbotron-gallery-item__inline-menu {
+		background: #fff;
+		border: 1px solid rgba(66, 88, 99, 0.4);
+		border-radius: 4px;
+		transition: box-shadow 0.2s ease-out;
+
+		&:hover {
+			box-shadow: 0 2px 10px rgba(25, 30, 35, 0.1), 0 0 2px rgba(25, 30, 35, 0.1);
+		}
+
+		.components-button {
+			color: rgba(14, 28, 46, 0.62);
+			padding: 2px;
+			height: 24px;
+
+			// Remove hover box shadows, since they clash with the container.
+			&:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
+				box-shadow: none;
+			}
+		}
+	}
 }
