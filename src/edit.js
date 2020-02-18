@@ -8,8 +8,6 @@ import { filter } from 'lodash';
  * WordPress dependencies
  */
 import {
-	DropZone,
-	FormFileUpload,
 	IconButton,
 	PanelBody,
 	RangeControl,
@@ -23,7 +21,6 @@ import {
 	MediaUpload,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { mediaUpload } from '@wordpress/editor';
 import { Component, Fragment } from '@wordpress/element';
 
 /**
@@ -44,8 +41,6 @@ class JumbotronEdit extends Component {
 		this.onRemoveVideo = this.onRemoveVideo.bind( this );
 		this.onSelectVideos = this.onSelectVideos.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
-		this.addFiles = this.addFiles.bind( this );
-		this.uploadFromFiles = this.uploadFromFiles.bind( this );
 
 		this.state = {
 			selectedVideo: null,
@@ -87,29 +82,6 @@ class JumbotronEdit extends Component {
 		this.props.setAttributes( { columns: value } );
 	}
 
-	uploadFromFiles() {
-		this.addFiles( event.target.files );
-	}
-
-	addFiles( files ) {
-		const currentVideos = this.props.attributes.videos || [];
-		const { setAttributes, noticeOperations } = this.props;
-
-		mediaUpload( {
-			allowedTypes: ALLOWED_MEDIA_TYPES,
-			filesList: files,
-			onFileChange: ( videos ) => {
-				const videosNormalized = videos.map( ( video ) =>
-					pickRelevantMediaFiles( video )
-				);
-				setAttributes( {
-					videos: currentVideos.concat( videosNormalized ),
-				} );
-			},
-			onError: noticeOperations.createErrorNotice,
-		} );
-	}
-
 	render() {
 		const {
 			attributes,
@@ -123,11 +95,34 @@ class JumbotronEdit extends Component {
 			columns = defaultColumnsNumber( attributes ),
 		} = attributes;
 
-		const dropZone = <DropZone onFilesDrop={ this.addFiles } />;
+		const hasVideos = !! videos.length;
+
+		const mediaPlaceholder = (
+			<MediaPlaceholder
+				addToGallery={ hasVideos }
+				isAppender={ hasVideos }
+				className={ className }
+				disableMediaButtons={ hasVideos && ! isSelected }
+				icon={ ! hasVideos && <BlockIcon icon={ icon } /> }
+				labels={ {
+					title: ! hasVideos && 'Jumbotron',
+					instructions:
+						! hasVideos &&
+						'Drag videos, upload new ones or select files from your library.',
+				} }
+				onSelect={ this.onSelectVideos }
+				accept="video/*"
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				multiple
+				value={ videos }
+				onError={ noticeOperations.createErrorNotice }
+				notices={ hasVideos ? undefined : noticeUI }
+			/>
+		);
 
 		const controls = (
 			<BlockControls>
-				{ !! videos.length && (
+				{ hasVideos && (
 					<Toolbar>
 						<MediaUpload
 							onSelect={ this.onSelectVideos }
@@ -148,26 +143,8 @@ class JumbotronEdit extends Component {
 			</BlockControls>
 		);
 
-		if ( videos.length === 0 ) {
-			return (
-				<Fragment>
-					<MediaPlaceholder
-						icon={ <BlockIcon icon={ icon } /> }
-						className={ className }
-						labels={ {
-							title: 'Jumbotron',
-							instructions:
-								'Drag videos, upload new ones or select files from your library.',
-						} }
-						onSelect={ this.onSelectVideos }
-						accept="video/*"
-						allowedTypes={ ALLOWED_MEDIA_TYPES }
-						multiple
-						notices={ noticeUI }
-						onError={ noticeOperations.createErrorNotice }
-					/>
-				</Fragment>
-			);
+		if ( ! hasVideos ) {
+			return mediaPlaceholder;
 		}
 
 		return (
@@ -193,7 +170,6 @@ class JumbotronEdit extends Component {
 						[ `columns-${ columns }` ]: columns,
 					} ) }
 				>
-					{ dropZone }
 					{ videos.map( ( video, index ) => {
 						return (
 							<li
@@ -213,21 +189,8 @@ class JumbotronEdit extends Component {
 							</li>
 						);
 					} ) }
-					{ isSelected && (
-						<li className="jumbotron-gallery-item has-add-item-button">
-							<FormFileUpload
-								multiple
-								isLarge
-								className="jumbotron-add-item-button"
-								onChange={ this.uploadFromFiles }
-								accept="video/*"
-								icon="insert"
-							>
-								Upload an video
-							</FormFileUpload>
-						</li>
-					) }
 				</ul>
+				{ isSelected && mediaPlaceholder }
 			</Fragment>
 		);
 	}
