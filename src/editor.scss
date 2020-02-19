@@ -9,4 +9,26 @@
 		margin-top: 0;
 		margin-bottom: 14px;
 	}
+
+	.jumbotron-gallery-item {
+		position: relative;
+	}
+}
+
+.jumbotron-gallery-item__link {
+	flex: 1 85%;
+}
+
+.jumbotron-gallery-item__movers {
+	margin-left: 5px;
+}
+
+.jumbotron-gallery-item__time,
+.jumbotron-gallery-item__movers {
+	flex: 1;
+}
+
+.jumbotron-gallery-item__move-up,
+.jumbotron-gallery-item__move-down {
+	padding: 0;
 }

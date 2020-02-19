@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
+import { IconButton } from '@wordpress/components';
 
 class GalleryVideo extends Component {
 	constructor() {
@@ -16,7 +17,17 @@ class GalleryVideo extends Component {
 	}
 
 	render() {
-		const { id, title, url, description, fileLength } = this.props;
+		const {
+			id,
+			title,
+			url,
+			description,
+			fileLength,
+			isFirstItem,
+			isLastItem,
+			onMoveUp,
+			onMoveDown,
+		} = this.props;
 
 		return (
 			<>
@@ -31,6 +42,22 @@ class GalleryVideo extends Component {
 				</a>
 				<span className="jumbotron-gallery-item__time">
 					{ fileLength }
+				</span>
+				<span className="jumbotron-gallery-item__movers">
+					<IconButton
+						icon="arrow-up"
+						onClick={ isFirstItem ? undefined : onMoveUp }
+						className="jumbotron-gallery-item__move-up"
+						label="Move video up"
+						aria-disabled={ isFirstItem }
+					/>
+					<IconButton
+						icon="arrow-down"
+						onClick={ isLastItem ? undefined : onMoveDown }
+						className="jumbotron-gallery-item__move-down"
+						label="Move video down"
+						aria-disabled={ isLastItem }
+					/>
 				</span>
 			</>
 		);

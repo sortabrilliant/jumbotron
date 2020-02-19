@@ -1,13 +1,20 @@
 import GalleryVideo from './gallery-video';
 
 const Gallery = ( props ) => {
-	const { attributes, isSelected, mediaPlaceholder, onSelectVideo } = props;
+	const {
+		attributes,
+		isSelected,
+		mediaPlaceholder,
+		onSelectVideo,
+		onMoveUp,
+		onMoveDown,
+	} = props;
 	const { videos } = attributes;
 
 	return (
 		<>
 			<ul className="jumbotron-gallery">
-				{ videos.map( ( video ) => {
+				{ videos.map( ( video, index ) => {
 					return (
 						<li
 							className="jumbotron-gallery-item"
@@ -15,6 +22,10 @@ const Gallery = ( props ) => {
 						>
 							<GalleryVideo
 								{ ...video }
+								isFirstItem={ index === 0 }
+								isLastItem={ index + 1 === videos.length }
+								onMoveUp={ onMoveUp( index ) }
+								onMoveDown={ onMoveDown( index ) }
 								onSelectVideo={ onSelectVideo( video ) }
 							/>
 						</li>

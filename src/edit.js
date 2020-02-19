@@ -25,6 +25,9 @@ class JumbotronEdit extends Component {
 		super( ...arguments );
 
 		this.onSelectVideo = this.onSelectVideo.bind( this );
+		this.onMove = this.onMove.bind( this );
+		this.onMoveUp = this.onMoveUp.bind( this );
+		this.onMoveDown = this.onMoveDown.bind( this );
 		this.onSelectVideos = this.onSelectVideos.bind( this );
 
 		this.state = {
@@ -39,6 +42,31 @@ class JumbotronEdit extends Component {
 					selectedVideo: index,
 				} );
 			}
+		};
+	}
+
+	onMove( oldIndex, newIndex ) {
+		const videos = [ ...this.props.attributes.videos ];
+		videos.splice( newIndex, 1, this.props.attributes.videos[ oldIndex ] );
+		videos.splice( oldIndex, 1, this.props.attributes.videos[ newIndex ] );
+		this.props.setAttributes( { videos } );
+	}
+
+	onMoveUp( oldIndex ) {
+		return () => {
+			if ( oldIndex === 0 ) {
+				return;
+			}
+			this.onMove( oldIndex, oldIndex - 1 );
+		};
+	}
+
+	onMoveDown( oldIndex ) {
+		return () => {
+			if ( oldIndex === this.props.attributes.videos.length - 1 ) {
+				return;
+			}
+			this.onMove( oldIndex, oldIndex + 1 );
 		};
 	}
 
@@ -123,6 +151,8 @@ class JumbotronEdit extends Component {
 						{ ...this.props }
 						mediaPlaceholder={ mediaPlaceholder }
 						onSelectVideo={ this.onSelectVideo }
+						onMoveUp={ this.onMoveUp }
+						onMoveDown={ this.onMoveDown }
 					/>
 				</div>
 			</Fragment>
