@@ -4,8 +4,7 @@
 	);
 
 	function renderPlayer( jumbotron, video ) {
-		const currentPlayer = jumbotron.querySelector( '.jumbotron-player' );
-
+		const player = jumbotron.querySelector( '.jumbotron-player' );
 		const markup = `
 			<figure class="jumbotron-player">
 				<video controls="true" src=${ video.src }></video>
@@ -13,13 +12,8 @@
 			</figure>
 		`;
 
-		// Replace current player
-		if ( currentPlayer ) {
-			currentPlayer.outerHTML = markup;
-			return;
-		}
-
-		jumbotron.insertAdjacentHTML( 'afterbegin', markup );
+		// Replace the current player.
+		player.outerHTML = markup;
 	}
 
 	function bindEvents( jumbotron ) {

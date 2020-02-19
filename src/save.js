@@ -1,8 +1,15 @@
 const save = ( { attributes, className } ) => {
 	const { videos } = attributes;
+	const [ fisrtVideo ] = videos;
 
 	return (
 		<div className={ className }>
+			<figure className="jumbotron-player">
+				<video controls={ true } src={ fisrtVideo.url } />
+				{ fisrtVideo.description && (
+					<figcaption>{ fisrtVideo.description }</figcaption>
+				) }
+			</figure>
 			<ul className="jumbotron-gallery">
 				{ videos.map( ( video ) => {
 					return (

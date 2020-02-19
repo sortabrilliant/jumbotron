@@ -111,12 +111,14 @@ class JumbotronEdit extends Component {
 			return mediaPlaceholder;
 		}
 
+		const [ firstVideo ] = videos;
+
 		return (
 			<Fragment>
 				{ controls }
 				{ noticeUI }
 				<div className={ className }>
-					{ isSelected && <Player video={ selectedVideo } /> }
+					<Player video={ selectedVideo || firstVideo } />
 					<Gallery
 						{ ...this.props }
 						mediaPlaceholder={ mediaPlaceholder }
