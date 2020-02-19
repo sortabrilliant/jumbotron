@@ -3,10 +3,6 @@
  */
 import { pick } from 'lodash';
 
-export function defaultColumnsNumber( attributes ) {
-	return Math.min( 2, attributes.videos.length );
-}
-
 export function pickRelevantMediaFiles( video ) {
-	return pick( video, [ 'id', 'url' ] );
+	return pick( video, [ 'id', 'title', 'url', 'description', 'fileLength' ] );
 }

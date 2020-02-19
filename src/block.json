@@ -10,18 +10,30 @@
 			"query": {
 				"id": {
 					"source": "attribute",
-					"selector": "video",
+					"selector": "a",
 					"attribute": "data-id"
+				},
+				"title": {
+					"type": "string",
+					"source": "text",
+					"selector": "a"
 				},
 				"url": {
 					"source": "attribute",
-					"selector": "video",
-					"attribute": "src"
+					"selector": "a",
+					"attribute": "href"
+				},
+				"description": {
+					"source": "attribute",
+					"selector": "a",
+					"attribute": "data-desc"
+				},
+				"fileLength": {
+					"type": "string",
+					"source": "text",
+					"selector": ".jumbotron-gallery-item__time"
 				}
 			}
-		},
-		"columns": {
-			"type": "number"
 		}
 	}
 }
