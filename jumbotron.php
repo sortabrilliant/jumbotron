@@ -37,6 +37,13 @@ function register_block() {
 		$asset_file['version']
 	);
 
+	wp_register_script(
+		'jumbotron-theme-script',
+		plugins_url( 'build/theme.js', __FILE__ ),
+		$asset_file['dependencies'],
+		$asset_file['version']
+	);
+
 	wp_register_style(
 		'jumbotron-style',
 		plugins_url( 'build/style.css', __FILE__ ),
@@ -54,7 +61,21 @@ function register_block() {
 	register_block_type( 'sortabrilliant/jumbotron', [
 		'editor_script'   => 'jumbotron',
 		'editor_style'    => 'jumbotron-editor-style',
-		'style'           => 'jumbotron-style'
+		'style'           => 'jumbotron-style',
+		'render_callback' => __NAMESPACE__ . '\\enqueue_theme_script',
 	] );
 }
 add_action( 'init', __NAMESPACE__ . '\\register_block' );
+
+/**
+ * Enqueue conditional front-end scripts.
+ *
+ * @param array $attributes
+ * @param string $content
+ * @return string $content
+ */
+function enqueue_theme_script( $attributes, $content ) {
+	wp_enqueue_script( 'jumbotron-theme-script' );
+
+	return $content;
+}

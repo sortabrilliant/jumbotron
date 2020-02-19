@@ -4,6 +4,10 @@ $border-color: #e2e8f0;
 
 .jumbotron-player {
 	margin: 0 0 14px 0;
+
+	video {
+		width: 100%;
+	}
 }
 
 .jumbotron-gallery {
