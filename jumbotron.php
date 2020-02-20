@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Jumbotron
  * Plugin URI:  https://sortabrilliant.com/jumbotron/
- * Description:
+ * Description: With Jumbotron it's never been easier to display a gallery of videos.
  * Author:      sorta brilliant
  * Author URI:  https://sortabrilliant.com/
  * Version:     1.0.0
