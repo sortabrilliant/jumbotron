@@ -1,4 +1,5 @@
 import { Disabled } from '@wordpress/components';
+import { RawHTML } from '@wordpress/element';
 
 const Player = ( { video } ) => {
 	if ( ! video ) {
@@ -11,7 +12,9 @@ const Player = ( { video } ) => {
 				<video controls={ true } src={ video.url } />
 			</Disabled>
 			{ video.description && (
-				<figcaption>{ video.description }</figcaption>
+				<figcaption>
+					<RawHTML>{ video.description }</RawHTML>
+				</figcaption>
 			) }
 		</figure>
 	);

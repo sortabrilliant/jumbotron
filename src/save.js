@@ -1,3 +1,5 @@
+import { RawHTML } from '@wordpress/element';
+
 const save = ( { attributes, className } ) => {
 	const { videos } = attributes;
 	const [ fisrtVideo ] = videos;
@@ -7,7 +9,9 @@ const save = ( { attributes, className } ) => {
 			<figure className="jumbotron-player">
 				<video controls={ true } src={ fisrtVideo.url } />
 				{ fisrtVideo.description && (
-					<figcaption>{ fisrtVideo.description }</figcaption>
+					<figcaption>
+						<RawHTML>{ fisrtVideo.description }</RawHTML>
+					</figcaption>
 				) }
 			</figure>
 			<ul className="jumbotron-gallery">
