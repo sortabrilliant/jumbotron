@@ -4,7 +4,7 @@ Tags: video, gallery, block
 Requires at least: 5.0
 Tested up to: 5.3.2
 Requires PHP: 5.6
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPL-2.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -18,4 +18,10 @@ Every block is a solution to a problem. I was working on a personal project, a f
 2. That's it
 
 == Changelog ==
-* 1.0.0 Initial Commit
+
+= 1.1.0 =
+* Adds support for HTML descriptions.
+* Adds support for manual poster image.
+
+= 1.0.0 =
+* initial commit
