@@ -7,7 +7,11 @@
 		const player = jumbotron.querySelector( '.jumbotron-player' );
 		const markup = `
 			<figure class="jumbotron-player">
-				<video controls="true" src=${ video.src }></video>
+				<video
+					controls="true"
+					src=${ video.src }
+					${ video.poster && `poster=${ video.poster }` }
+				></video>
 				<figcaption>${ video.desc }</figcaption>
 			</figure>
 		`;
@@ -32,6 +36,7 @@
 				src: event.target.href,
 				id: event.target.getAttribute( 'data-id' ),
 				desc: event.target.getAttribute( 'data-desc' ),
+				poster: event.target.getAttribute( 'data-poster' ),
 			};
 
 			renderPlayer( jumbotron, video );

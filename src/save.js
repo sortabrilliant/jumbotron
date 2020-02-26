@@ -6,6 +6,7 @@ const save = ( { attributes, className } ) => {
 
 	return (
 		<div className={ className }>
+<<<<<<< HEAD
 			<figure className="jumbotron-player">
 				<video controls={ true } src={ fisrtVideo.url } />
 				{ fisrtVideo.description && (
@@ -14,6 +15,20 @@ const save = ( { attributes, className } ) => {
 					</figcaption>
 				) }
 			</figure>
+=======
+			{ fisrtVideo && (
+				<figure className="jumbotron-player">
+					<video
+						controls={ true }
+						poster={ fisrtVideo.poster }
+						src={ fisrtVideo.url }
+					/>
+					{ fisrtVideo.description && (
+						<figcaption>{ fisrtVideo.description }</figcaption>
+					) }
+				</figure>
+			) }
+>>>>>>> Adds support for manual poster images
 			<ul className="jumbotron-gallery">
 				{ videos.map( ( video ) => {
 					return (
@@ -22,6 +37,7 @@ const save = ( { attributes, className } ) => {
 								href={ video.url }
 								className="jumbotron-gallery-item__link"
 								data-id={ video.id }
+								data-poster={ video.poster }
 								data-desc={ video.description }
 							>
 								{ video.title }

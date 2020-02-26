@@ -9,7 +9,11 @@ const Player = ( { video } ) => {
 	return (
 		<figure className="jumbotron-player">
 			<Disabled>
-				<video controls={ true } src={ video.url } />
+				<video
+					controls={ true }
+					poster={ video.poster }
+					src={ video.url }
+				/>
 			</Disabled>
 			{ video.description && (
 				<figcaption>

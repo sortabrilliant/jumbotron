@@ -1,8 +1,20 @@
 /**
  * External dependencies
  */
-import { pick } from 'lodash';
+import { get, pick } from 'lodash';
 
 export function pickRelevantMediaFiles( video ) {
-	return pick( video, [ 'id', 'title', 'url', 'description', 'fileLength' ] );
+	const videoProps = pick( video, [
+		'id',
+		'title',
+		'url',
+		'description',
+		'icon',
+		'fileLength',
+	] );
+	const vidoeImage = get( video, [ 'image', 'src' ] );
+
+	videoProps.poster = videoProps.icon !== vidoeImage ? vidoeImage : null;
+
+	return videoProps;
 }

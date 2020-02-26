@@ -28,6 +28,12 @@
 					"selector": "a",
 					"attribute": "data-desc"
 				},
+				"poster": {
+					"type": "string",
+					"source": "attribute",
+					"selector": "a",
+					"attribute": "data-poster"
+				},
 				"fileLength": {
 					"type": "string",
 					"source": "text",

@@ -22,6 +22,7 @@ class GalleryVideo extends Component {
 			title,
 			url,
 			description,
+			poster,
 			fileLength,
 			isFirstItem,
 			isLastItem,
@@ -35,6 +36,7 @@ class GalleryVideo extends Component {
 					href={ url }
 					className="jumbotron-gallery-item__link"
 					data-id={ id }
+					data-poster={ poster }
 					data-desc={ description }
 					onClick={ this.onSelectVideo }
 				>
