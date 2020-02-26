@@ -14,7 +14,9 @@ const save = ( { attributes, className } ) => {
 						src={ fisrtVideo.url }
 					/>
 					{ fisrtVideo.description && (
-						<figcaption>{ fisrtVideo.description }</figcaption>
+						<figcaption>
+							<RawHTML>{ fisrtVideo.description }</RawHTML>
+						</figcaption>
 					) }
 				</figure>
 			) }
